@@ -6,7 +6,11 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and 
 
 ## [Unreleased]
 
-_Nothing yet._
+### Changed
+- Project page TOC popover now inverts against the page background — black card with white text on light pages, white card with black text on dark pages. Achieved by swapping `bg-card / text-card-foreground` (matches page) for `bg-primary / text-primary-foreground` (inverted in the design tokens). Internal hover/active overlays, borders, and muted text use `primary-foreground/X` so they adapt automatically.
+
+### Fixed
+- Project page TOC was previously hardcoded to `bg-neutral-900` + `text-white` and stayed dark in light mode. It now responds to theme changes.
 
 ## [0.1.0] — 2026-05-11
 

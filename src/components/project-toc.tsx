@@ -104,9 +104,9 @@ export function ProjectToc({ items }: ProjectTocProps) {
       ref={containerRef}
       className="fixed bottom-6 left-1/2 z-50 w-[min(20rem,calc(100vw-2rem))] -translate-x-1/2"
     >
-      <div className="overflow-hidden rounded-2xl bg-neutral-900 text-white shadow-2xl ring-1 ring-white/10 backdrop-blur dark:bg-neutral-900">
+      <div className="overflow-hidden rounded-2xl bg-primary text-primary-foreground shadow-2xl ring-1 ring-primary-foreground/10 backdrop-blur">
         {open ? (
-          <ul className="max-h-72 overflow-y-auto border-b border-white/10 py-1.5">
+          <ul className="max-h-72 overflow-y-auto border-b border-primary-foreground/10 py-1.5">
             {items.map((item) => {
               const isActive = item.id === activeId;
               return (
@@ -117,8 +117,8 @@ export function ProjectToc({ items }: ProjectTocProps) {
                     className={cn(
                       "block px-4 py-2 text-sm transition-colors",
                       isActive
-                        ? "bg-white/[0.07] font-medium text-white"
-                        : "text-white/55 hover:bg-white/[0.04] hover:text-white"
+                        ? "bg-primary-foreground/[0.08] font-medium text-primary-foreground"
+                        : "text-primary-foreground/55 hover:bg-primary-foreground/[0.04] hover:text-primary-foreground"
                     )}
                   >
                     {item.title}
@@ -134,13 +134,13 @@ export function ProjectToc({ items }: ProjectTocProps) {
           onClick={() => setOpen((o) => !o)}
           aria-expanded={open}
           aria-label="Toggle table of contents"
-          className="flex w-full items-center gap-3 px-3 py-2.5 transition-colors hover:bg-white/[0.04]"
+          className="flex w-full items-center gap-3 px-3 py-2.5 transition-colors hover:bg-primary-foreground/[0.04]"
         >
-          <MenuIcon className="size-4 shrink-0 text-white/60" />
-          <span className="flex-1 truncate text-left text-sm font-medium text-white">
+          <MenuIcon className="size-4 shrink-0 text-primary-foreground/60" />
+          <span className="flex-1 truncate text-left text-sm font-medium text-primary-foreground">
             {activeItem?.title ?? "Contents"}
           </span>
-          <ChevronUpDownIcon className="size-4 shrink-0 text-white/60" />
+          <ChevronUpDownIcon className="size-4 shrink-0 text-primary-foreground/60" />
           <span className="shrink-0 rounded-md bg-emerald-400 px-2 py-0.5 text-xs font-semibold tabular-nums text-emerald-950 tracking-tight">
             {progress}%
           </span>
