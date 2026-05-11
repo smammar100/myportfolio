@@ -1,154 +1,126 @@
-# AI Website Cloner Template
+# Portfolio
 
-<a href="https://github.com/JCodesMore/ai-website-cloner-template/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue" alt="MIT License" /></a> <a href="https://github.com/JCodesMore/ai-website-cloner-template/stargazers"><img src="https://img.shields.io/github/stars/JCodesMore/ai-website-cloner-template?style=flat" alt="Stars" /></a> <a href="https://discord.gg/hrTSX5yTpB"><img src="https://img.shields.io/discord/1400896964597383279?label=discord" alt="Discord" /></a>
+A design-engineering portfolio built on Next.js 16 with a focus on motion, texture, and small interactive details. Animated noise overlay, a satisfying spring-physics cursor trail, and a navigation pill that slides between sections with a squash-and-stretch — all running together at full frame rate.
 
-A reusable template for reverse-engineering any website into a clean, modern Next.js codebase using AI coding agents. 
+```
+Next.js 16 · React 19 · Tailwind v4 · TypeScript strict
+```
 
-**Recommended: [Claude Code](https://docs.anthropic.com/en/docs/claude-code) with Opus 4.7 for best results** — but works with a variety of AI coding agents.
+---
 
-Point it at a URL, run `/clone-website`, and your AI agent will inspect the site, extract design tokens and assets, write component specs, and dispatch parallel builders to reconstruct every section.
+## What's inside
 
-## Demo
+**Pages**
+- `/` — Home: hero, selected work, stack, about, experience, latest writing, contribution graph
+- `/about` — Long-form bio with manifesto, tools, and now-listening
+- `/articles` — Writing index
+- `/projects/[slug]` — Per-project deep dives with table of contents
 
-[![Watch the demo](docs/design-references/comparison.png)](https://youtu.be/O669pVZ_qr0)
+**Signature pieces**
 
-> Click the image above to watch the full demo on YouTube.
+| Component | What it does | Where |
+| --- | --- | --- |
+| Sliding-selection toolbar | Dark pill with icon buttons. A white highlight slides between the active route using `mix-blend-mode: difference` + Web Animations API keyframes (squash on the way out, stretch on the way in). | [`src/components/ui/toolbar.tsx`](src/components/ui/toolbar.tsx), [`src/components/nav-toolbar.tsx`](src/components/nav-toolbar.tsx) |
+| Curly cursor trail | 40-point chain. Each point chases the previous with spring (0.4) + friction (0.5), drawn as a tapered quadratic-Bézier curve on a fixed canvas. Lissajous intro motion until you move the mouse. | [`src/components/cursor-trail.tsx`](src/components/cursor-trail.tsx) |
+| Animated static noise | Inline `<feTurbulence>` SVG, repeated and jittered with a 10-keyframe `steps(1)` animation — the snappy "TV static" feel without an external asset. Multiply blend on light, screen on dark. | [`src/app/globals.css`](src/app/globals.css) — `.noise-bg` |
+| View-transition theme toggle | Radial reveal from the click point when switching light/dark, via the View Transitions API. | [`src/components/nav-toolbar.tsx`](src/components/nav-toolbar.tsx) — `ThemeToolbarToggle` |
 
-## Quick Start
+All of the above respect `prefers-reduced-motion` — animations pause, the cursor trail unmounts, and the native pointer comes back.
 
-1. **Clone this repository**
-   ```bash
-   git clone https://github.com/JCodesMore/ai-website-cloner-template.git my-clone
-   cd my-clone
-   ```
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
-3. **Start your AI agent** — Claude Code recommended:
-   ```bash
-   claude --chrome
-   ```
-4. **Run the skill**:
-   ```
-   /clone-website <target-url1> [<target-url2> ...]
-   ```
-5. **Customize** (optional) — after the base clone is built, modify as needed
+---
 
-> Using a different agent? Open `AGENTS.md` for project instructions — most agents pick it up automatically.
+## Stack
 
-## Supported Platforms
+- **Framework** — Next.js 16 (App Router), React 19, TypeScript (strict, no `any`)
+- **Styling** — Tailwind CSS v4 with oklch design tokens, `cn()` from `clsx + tailwind-merge`
+- **UI primitives** — shadcn/ui (Base UI + Radix)
+- **Theming** — `next-themes` with class strategy
+- **Fonts** — Funnel Sans (Google Fonts)
+- **Deployment** — Vercel-ready
 
-| Agent                                                         | Status                     |
-| ------------------------------------------------------------- | -------------------------- |
-| [Claude Code](https://docs.anthropic.com/en/docs/claude-code) | **Recommended** — Opus 4.7 |
-| [Codex CLI](https://github.com/openai/codex)                  | Supported                  |
-| [OpenCode](https://opencode.ai/)                              | Supported                  |
-| [GitHub Copilot](https://github.com/features/copilot)         | Supported                  |
-| [Cursor](https://cursor.com/)                                 | Supported                  |
-| [Windsurf](https://codeium.com/windsurf)                      | Supported                  |
-| [Gemini CLI](https://github.com/google-gemini/gemini-cli)     | Supported                  |
-| [Cline](https://github.com/cline/cline)                       | Supported                  |
-| [Roo Code](https://github.com/RooCodeInc/Roo-Code)            | Supported                  |
-| [Continue](https://continue.dev/)                             | Supported                  |
-| [Amazon Q](https://aws.amazon.com/q/developer/)               | Supported                  |
-| [Augment Code](https://www.augmentcode.com/)                  | Supported                  |
-| [Aider](https://aider.chat/)                                  | Supported                  |
+No client-side state library, no animation library — every effect here is hand-written DOM/canvas/CSS.
 
-## Prerequisites
+---
 
-- [Node.js](https://nodejs.org/) 24+
-- An AI coding agent (see [Supported Platforms](#supported-platforms))
+## Local development
 
-## Tech Stack
+```bash
+npm install
+npm run dev      # http://localhost:3000
+```
 
-- **Next.js 16** — App Router, React 19, TypeScript strict
-- **shadcn/ui** — Radix primitives + Tailwind CSS v4
-- **Tailwind CSS v4** — oklch design tokens
-- **Lucide React** — default icons (replaced by extracted SVGs during cloning)
+Other scripts:
 
-## How It Works
+```bash
+npm run build     # production build
+npm run lint      # eslint
+npm run typecheck # tsc --noEmit
+npm run check     # lint + typecheck + build
+```
 
-The `/clone-website` skill runs a multi-phase pipeline:
+---
 
-1. **Reconnaissance** — screenshots, design token extraction, interaction sweep (scroll, click, hover, responsive)
-2. **Foundation** — updates fonts, colors, globals, downloads all assets
-3. **Component Specs** — writes detailed spec files (`docs/research/components/`) with exact computed CSS values, states, behaviors, and content
-4. **Parallel Build** — dispatches builder agents in git worktrees, one per section/component
-5. **Assembly & QA** — merges worktrees, wires up the page, runs visual diff against the original
-
-Each builder agent receives the full component specification inline — exact `getComputedStyle()` values, interaction models, multi-state content, responsive breakpoints, and asset paths. No guessing.
-
-## Use Cases
-
-- **Platform migration** — rebuild a site you own from WordPress/Webflow/Squarespace into a modern Next.js codebase
-- **Lost source code** — your site is live but the repo is gone, the developer left, or the stack is legacy. Get the code back in a modern format
-- **Learning** — deconstruct how production sites achieve specific layouts, animations, and responsive behavior by working with real code
-
-## Not Intended For
-
-- **Phishing or impersonation** — this project must not be used for deceptive purposes, impersonation, or any activity that breaks the law.
-- **Passing off someone's design as your own** — logos, brand assets, and original copy belong to their owners.
-- **Violating terms of service** — some sites explicitly prohibit scraping or reproduction. Check first.
-
-## Project Structure
+## Project structure
 
 ```
 src/
-  app/              # Next.js routes
-  components/       # React components
-    ui/             # shadcn/ui primitives
-    icons.tsx       # Extracted SVG icons
-  lib/utils.ts      # cn() utility
-  types/            # TypeScript interfaces
-  hooks/            # Custom React hooks
+  app/
+    page.tsx              # /
+    about/page.tsx        # /about
+    articles/page.tsx     # /articles
+    projects/[slug]/      # /projects/<slug>
+    globals.css           # design tokens, toolbar styles, noise, cursor:none rules
+    layout.tsx            # root layout — mounts <CursorTrail /> + .noise-bg
+  components/
+    ui/toolbar.tsx        # sliding-selection toolbar primitive
+    ui/button.tsx         # shadcn button
+    nav-toolbar.tsx       # top-aligned nav + theme toggle
+    cursor-trail.tsx      # canvas spring-physics trail
+    hero-section.tsx
+    selected-work-section.tsx
+    stack-section.tsx
+    about-section.tsx
+    experience-section.tsx
+    writing-section.tsx
+    contribution-graph-section.tsx
+    site-footer.tsx
+    theme-provider.tsx
+    icons.tsx             # all SVG icons inline as React components
+  lib/
+    site-data.ts          # profile, navLinks, projects, articles
+    about-data.ts         # about-page content
+    project-data.ts       # per-project content
+    utils.ts              # cn()
+  types/
+    portfolio.ts          # shared interfaces
 public/
-  images/           # Downloaded images from target
-  videos/           # Downloaded videos from target
-  seo/              # Favicons, OG images
-docs/
-  research/         # Extraction output & component specs
-  design-references/ # Screenshots
-scripts/
-  sync-agent-rules.sh  # Regenerate agent instruction files
-  sync-skills.mjs      # Regenerate /clone-website for all platforms
-AGENTS.md           # Agent instructions (single source of truth)
-CLAUDE.md           # Claude Code config (imports AGENTS.md)
-GEMINI.md           # Gemini CLI config (imports AGENTS.md)
+  images/                 # photos, project covers, avatars
+  seo/                    # favicons, OG images, webmanifest
 ```
 
-## Commands
+---
 
-```bash
-npm run dev    # Start dev server
-npm run build  # Production build
-npm run lint   # ESLint check
-npm run typecheck # TypeScript check
-npm run check  # Run lint + typecheck + build
-```
+## Notes on the details
 
-### If using docker
+**Active-route detection** — the toolbar reads `usePathname()` and matches by prefix, so `/projects/echo-ui` keeps the "Projects" pill lit. Keyboard navigation (Arrow / Home / End) moves focus, slides the pill, and routes via `router.push()`.
 
-```bash
-docker compose up app --build # build and run the app
-docker compose up dev --build # run the app in dev mode on port 3001
-```
+**Theme-aware canvas** — the cursor trail reads `getComputedStyle(document.documentElement).getPropertyValue("--foreground")` and re-reads it via a `MutationObserver` watching `<html>.class`, so switching themes instantly flips the trail color (black ↔ off-white) without a remount.
 
-## Updating for Other Platforms
+**Coordinate space** — the trail canvas is `position: fixed`, so trail points are stored in **viewport coordinates** (`clientX/clientY`), not document coordinates. This keeps the trail visible at any scroll position on long pages.
 
-Two source-of-truth files power all platform support. Edit the source, then run the sync script:
+**Noise without dependencies** — the static-noise PNG from the original tutorial is replaced with an inline SVG `<feTurbulence>` filter encoded as a data URL. Zero network requests, ~270 bytes inline.
 
-| What                   | Source of truth                         | Sync command                       |
-| ---------------------- | --------------------------------------- | ---------------------------------- |
-| Project instructions   | `AGENTS.md`                             | `bash scripts/sync-agent-rules.sh` |
-| `/clone-website` skill | `.claude/skills/clone-website/SKILL.md` | `node scripts/sync-skills.mjs`     |
+---
 
-Each script regenerates the platform-specific copies automatically. Agents that read the source files natively need no regeneration.
+## Credits
 
+Design-engineering ideas borrowed and rebuilt from:
+- Toolbar sliding-selection — Ksenia Kondrashova's *Toolbars with Sliding Selection*
+- Curly cursor trail — Ksenia Kondrashova's *[Coding an Interactive (and Damn Satisfying) Cursor](https://dev.to/uuuulala/coding-an-interactive-and-damn-satisfying-cursor-7-simple-steps-2kb-of-code-1c8b)*
+- Animated noise — *CSS-Only Animated Static Noise Background*
+- Layout & content scaffold — [echo-nextjs-template](https://echo-nextjs-template.vercel.app)
 
-## Star History
-
-[![Star History Chart](https://api.star-history.com/svg?repos=JCodesMore/ai-website-cloner-template&type=Date)](https://star-history.com/#JCodesMore/ai-website-cloner-template&Date)
+---
 
 ## License
 
