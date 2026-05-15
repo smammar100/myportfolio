@@ -10,7 +10,7 @@ export function WritingSection() {
         title="Latest writing"
         link={{ label: "Read all", href: "/articles" }}
       />
-      <ul className="divide-y divide-border overflow-hidden rounded-xl border border-border bg-card">
+      <ul className="divide-y divide-border overflow-hidden rounded-xl bg-surface-2 shadow-surface-2">
         {articles.map((article) => (
           <li key={article.slug}>
             <Link

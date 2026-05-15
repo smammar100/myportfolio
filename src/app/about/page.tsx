@@ -54,7 +54,7 @@ export default function AboutPage() {
         </section>
 
         <section className="mt-16">
-          <div className="rounded-2xl border border-border bg-card p-8 sm:p-10">
+          <div className="rounded-2xl bg-surface-2 shadow-surface-2 p-8 sm:p-10">
             <h2 className="text-base font-semibold text-foreground">
               {manifesto.title}
             </h2>

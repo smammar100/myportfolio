@@ -54,16 +54,16 @@ export default async function ProjectPage({ params }: Params) {
         <article className="pt-12 pb-20">
           <header className="mb-12 space-y-6">
             <div className="flex flex-wrap items-center gap-2 text-xs">
-              <span className="rounded-full border border-border bg-card px-2.5 py-1 text-muted-foreground">
+              <span className="rounded-full bg-surface-2 shadow-surface-1 px-2.5 py-1 text-muted-foreground">
                 {project.version}
               </span>
-              <span className="rounded-full border border-border bg-card px-2.5 py-1 text-muted-foreground">
+              <span className="rounded-full bg-surface-2 shadow-surface-1 px-2.5 py-1 text-muted-foreground">
                 {project.platform}
               </span>
               {project.roles.map((r) => (
                 <span
                   key={r}
-                  className="rounded-full border border-border bg-card px-2.5 py-1 text-muted-foreground"
+                  className="rounded-full bg-surface-2 shadow-surface-1 px-2.5 py-1 text-muted-foreground"
                 >
                   {r}
                 </span>
@@ -109,7 +109,7 @@ export default async function ProjectPage({ params }: Params) {
                 <p className="max-w-prose text-base leading-relaxed text-muted-foreground">
                   {project.overviewSummary}
                 </p>
-                <dl className="grid grid-cols-1 gap-y-3 rounded-xl border border-border bg-card p-5 text-sm sm:grid-cols-3">
+                <dl className="grid grid-cols-1 gap-y-3 rounded-xl bg-surface-2 shadow-surface-2 p-5 text-sm sm:grid-cols-3">
                   <div>
                     <dt className="text-muted-foreground">Team</dt>
                     <dd className="mt-1 font-medium text-foreground">
@@ -142,7 +142,7 @@ export default async function ProjectPage({ params }: Params) {
                   {project.goals.map((goal, i) => (
                     <li
                       key={goal.title}
-                      className="rounded-xl border border-border bg-card p-5"
+                      className="rounded-xl bg-surface-2 shadow-surface-2 p-5"
                     >
                       <span className="text-xs font-medium tabular-nums text-muted-foreground">
                         {String(i + 1).padStart(2, "0")}
@@ -200,7 +200,7 @@ export default async function ProjectPage({ params }: Params) {
                     href={project.demoUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 rounded-md border border-border bg-card px-4 py-2.5 text-sm font-medium text-foreground transition-colors hover:bg-muted"
+                    className="inline-flex items-center gap-2 rounded-md bg-surface-2 shadow-surface-2 px-4 py-2.5 text-sm font-medium text-foreground transition-colors hover:bg-muted"
                   >
                     Try the demo
                     <ArrowUpRightIcon className="size-4" />

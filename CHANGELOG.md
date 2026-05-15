@@ -6,7 +6,15 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and 
 
 ## [Unreleased]
 
+### Added
+- **Elevation system** from [fluidfunctionalism/elevated](https://www.fluidfunctionalism.com/r/elevated.json) — 8-level surface + shadow ladder via CSS custom properties, with automatic light/dark adaptation.
+  - `src/lib/surface-context.tsx` — `useSurface()` hook + `SurfaceProvider` React context for tracking substrate level across nested components.
+  - `src/lib/surface-classes.ts` — Static lookup maps (`SURFACE_BG`, `SURFACE_SHADOW`, `surfaceClasses()`) required because Tailwind v4 cannot scan template-literal class names.
+  - `src/lib/elevated.tsx` — `<Elevated offset={N}>` component that reads the current substrate, applies the correct `bg-surface-N shadow-surface-N` classes, and re-provides the new level to descendants.
+  - `globals.css` — `--surface-1..8` and `--shadow-1..8` token definitions for both light (`#FAFAFA → #FFFFFF`, multi-layer drop shadow at 6% black) and dark (`#171717 → #484848`, inset top-highlight + ring + layered drop).
+
 ### Changed
+- All card surfaces migrated from `bg-card border border-border` (flat) to `bg-surface-2 shadow-surface-2` (elevated). Affected: Latest writing list, Articles page list, About manifesto card, Project overview box, goal cards, tag pills, and secondary demo button.
 - Project page TOC popover now inverts against the page background — black card with white text on light pages, white card with black text on dark pages. Achieved by swapping `bg-card / text-card-foreground` (matches page) for `bg-primary / text-primary-foreground` (inverted in the design tokens). Internal hover/active overlays, borders, and muted text use `primary-foreground/X` so they adapt automatically.
 
 ### Fixed

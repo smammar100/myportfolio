@@ -24,7 +24,7 @@ export default function ArticlesPage() {
           </p>
         </header>
 
-        <ul className="mt-12 divide-y divide-border overflow-hidden rounded-xl border border-border bg-card">
+        <ul className="mt-12 divide-y divide-border overflow-hidden rounded-xl bg-surface-2 shadow-surface-2">
           {articles.map((article) => (
             <li key={article.slug}>
               <Link
