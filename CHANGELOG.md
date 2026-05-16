@@ -7,6 +7,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and 
 ## [Unreleased]
 
 ### Added
+- **Project case-study page template.** `src/app/projects/[slug]/page.tsx` rebuilt into a long-form editorial case study — full-width cover image opens the page → eyebrow project name → large tagline-as-hero statement → "Published in {year}" → hairline-divided meta groups (Services / Deliverables / Links, then Client / Team / Roles, then a metrics row) as stacked lists → cover → overview → large display Impact metrics → goals → stacked narrative (heading + large body + full-width media per item) → optional gallery → standalone pull-quote → conclusion → "next project" card (wraps around `projects[]`). Section headings carry a quiet trailing period. Layout patterns follow a generic editorial case-study structure; rendered entirely in the site's own monochrome tokens, type scale, and `Elevated` surface system (no external styling, colours, or assets). Floating `ProjectToc` kept and wired to the dynamic section list. `ProjectDetail` extended with optional additive fields (`client`, `services`, `deliverables`, `year`, `metrics`, `gallery`, `pullQuote`) + `ProjectMetric` / `ProjectPullQuote` types; all 4 projects re-mapped from their existing copy.
 - **Live GitHub contribution graph in the footer.** The footer now renders a real contribution calendar for `smammar100` from the official GitHub GraphQL API, on every page.
   - `src/lib/github.ts` — `import "server-only"` data fetcher. POSTs the `contributionsCollection` query to `api.github.com/graphql`, maps the `contributionLevel` enum → a 0–4 scale, and is wrapped in `unstable_cache` (keyed by username, 12h `revalidate`, tag `github-contributions`). The GraphQL POST is not auto-cached by Next's fetch Data Cache, so explicit caching is required. `'use cache'` was deliberately avoided since it would require flipping the app-wide `cacheComponents` flag.
   - `src/components/contribution-graph.tsx` — presentational, prop-driven (`{ calendar }`). Cells are placed by ISO weekday via `gridColumnStart`/`gridRowStart` so partial first/last weeks align correctly. Keeps the original emerald `LEVEL_CLASSES` (with `dark:` variants) + Less/More legend.
@@ -18,6 +19,13 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and 
   - `src/lib/surface-classes.ts` — Static lookup maps (`SURFACE_BG`, `SURFACE_SHADOW`, `surfaceClasses()`) required because Tailwind v4 cannot scan template-literal class names.
   - `src/lib/elevated.tsx` — `<Elevated offset={N}>` component that reads the current substrate, applies the correct `bg-surface-N shadow-surface-N` classes, and re-provides the new level to descendants.
   - `globals.css` — `--surface-1..8` and `--shadow-1..8` token definitions for both light (`#FAFAFA → #FFFFFF`, multi-layer drop shadow at 6% black) and dark (`#171717 → #484848`, inset top-highlight + ring + layered drop).
+
+### Changed
+- `SiteFooter` gained an optional `showContributions` prop (default `true`). Project case-study pages pass `showContributions={false}` — the GitHub contribution graph is hidden there (and the GitHub fetch skipped entirely), while home and articles keep it. Email link still shown.
+
+### Fixed
+- **Scroll/perf lag.** The animated `.noise-bg` overlay used `mix-blend-mode: multiply/screen` on a `200% × 200vh` fixed element, forcing the browser to re-composite the whole viewport against page content on every scroll frame. Removed the blend mode (now a subtle low-opacity grain: `0.05` light / `0.08` dark), shrank the element to `150% × 150%`, and added `will-change: transform` + `translateZ(0)` so it stays on its own GPU layer. `CursorTrail` now pauses its `requestAnimationFrame` loop while the tab is hidden.
+- Next-project card thumbnail no longer cropped — switched from `object-cover` (which clipped SVG cover illustrations) to `object-contain` on a padded `bg-muted` cell so any cover (illustration or photo) shows in full.
 
 ### Changed
 - Footer "GitHub contributions" heading now uses the shared section scale (`text-xl tracking-tight`, `mb-8`) so it matches every other section heading on the page instead of being a tiny `text-sm`.

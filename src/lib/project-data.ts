@@ -11,6 +11,20 @@ export const projectDetails: Record<string, ProjectDetail> = {
     version: "v3.0.0",
     platform: "Web — React 19",
     roles: ["Design", "Engineering"],
+    client: "Personal project",
+    services: ["Design Systems", "Component Engineering", "Documentation"],
+    deliverables: ["React component library", "Token system", "Docs site"],
+    year: "2025",
+    metrics: [
+      { value: "40+", label: "Production primitives" },
+      { value: "0kb", label: "Runtime styling" },
+      { value: "v3", label: "Major releases shipped" },
+    ],
+    pullQuote: {
+      quote:
+        "Behavior should be portable and testable; styling should be opt-in and easy to override for any consumer.",
+      attribution: "Echo UI design principles",
+    },
     overviewSummary:
       "Echo UI started as a few utilities I kept rewriting across side projects and grew into a full design system used in production by a handful of small teams.",
     team: "Solo",
@@ -92,6 +106,19 @@ export const projectDetails: Record<string, ProjectDetail> = {
     version: "v0.9 beta",
     platform: "Desktop — macOS & Windows",
     roles: ["Design", "Engineering"],
+    client: "Self-initiated",
+    services: ["Product Design", "Desktop Engineering"],
+    deliverables: ["macOS & Windows app", "Global command bar"],
+    year: "2025",
+    metrics: [
+      { value: "1", label: "Window, one input" },
+      { value: "0", label: "Notification nags" },
+      { value: "2", label: "Calendar providers" },
+    ],
+    pullQuote: {
+      quote: "The app's job is to disappear once the work starts.",
+      attribution: "JustOS product principle",
+    },
     overviewSummary:
       "JustOS is an attempt to undo the mode-switching tax of running separate apps for calendar, tasks, and notes.",
     team: "Solo",
@@ -173,6 +200,20 @@ export const projectDetails: Record<string, ProjectDetail> = {
     version: "v1.4.0",
     platform: "Web SaaS",
     roles: ["Design", "Engineering"],
+    client: "Indie SaaS",
+    services: ["Product Design", "Full-stack Engineering"],
+    deliverables: ["Analytics dashboard", "<1kb tracking script"],
+    year: "2024",
+    metrics: [
+      { value: "<1kb", label: "Tracking script" },
+      { value: "0", label: "Cookies set" },
+      { value: "2 yrs", label: "Live & profitable" },
+    ],
+    pullQuote: {
+      quote:
+        "Open the dashboard and the answer should be visible without scrolling or clicking.",
+      attribution: "Happy Stats design goal",
+    },
     overviewSummary:
       "An analytics product for people who don't care about funnels, cohorts, or session replay — they just want to know if today is up or down.",
     team: "Solo",
@@ -254,6 +295,20 @@ export const projectDetails: Record<string, ProjectDetail> = {
     version: "v2.1.0",
     platform: "Server (Node) + Client (TS)",
     roles: ["Architecture", "Engineering"],
+    client: "Open source",
+    services: ["Architecture", "Systems Engineering"],
+    deliverables: ["Realtime framework", "Typed client + server", "React hooks"],
+    year: "2024",
+    metrics: [
+      { value: "3+", label: "Production apps" },
+      { value: "16ms", label: "Cursor throttle" },
+      { value: "100%", label: "Typed end-to-end" },
+    ],
+    pullQuote: {
+      quote:
+        "Edits made offline merge cleanly when the client reconnects; conflicts surface as a typed result, not a thrown exception.",
+      attribution: "Cactus Plant offline model",
+    },
     overviewSummary:
       "Cactus Plant exists because every realtime feature I've shipped reinvented the same primitives — presence, document sync, conflict resolution, optimistic UI.",
     team: "Solo with occasional contributors",

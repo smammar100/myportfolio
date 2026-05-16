@@ -44,6 +44,16 @@ export interface ProjectFeatureSection {
   items: ProjectFeatureItem[];
 }
 
+export interface ProjectMetric {
+  value: string;
+  label: string;
+}
+
+export interface ProjectPullQuote {
+  quote: string;
+  attribution?: string;
+}
+
 export interface ProjectDetail {
   slug: string;
   title: string;
@@ -59,6 +69,17 @@ export interface ProjectDetail {
   goals: ProjectGoal[];
   sections: ProjectFeatureSection[];
   conclusion: string;
+  /** Case-study meta (optional, additive). */
+  client?: string;
+  services?: string[];
+  deliverables?: string[];
+  year?: string;
+  /** Significa-style stat row. */
+  metrics?: ProjectMetric[];
+  /** Optional image grid (paths under /public). */
+  gallery?: string[];
+  /** Optional large pull-quote. */
+  pullQuote?: ProjectPullQuote;
 }
 
 export type ContributionLevel = 0 | 1 | 2 | 3 | 4;

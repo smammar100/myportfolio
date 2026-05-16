@@ -3,8 +3,14 @@ import { ContributionGraph } from "@/components/contribution-graph";
 import { contributionYear, getContributions } from "@/lib/github";
 import { profile } from "@/lib/site-data";
 
-export async function SiteFooter() {
-  const calendar = await getContributions(profile.githubUsername);
+export async function SiteFooter({
+  showContributions = true,
+}: {
+  showContributions?: boolean;
+}) {
+  const calendar = showContributions
+    ? await getContributions(profile.githubUsername)
+    : null;
   const year = contributionYear();
 
   return (

@@ -83,11 +83,19 @@ export function CursorTrail() {
       if (t) updateMousePosition(t.clientX, t.clientY);
     }
 
+    function onVisibility() {
+      window.cancelAnimationFrame(rafId);
+      if (!document.hidden) {
+        rafId = window.requestAnimationFrame(update);
+      }
+    }
+
     setupCanvas();
     window.addEventListener("resize", setupCanvas);
     window.addEventListener("mousemove", onMouseMove);
     window.addEventListener("click", onClick);
     window.addEventListener("touchmove", onTouchMove);
+    document.addEventListener("visibilitychange", onVisibility);
 
     function update(t: number) {
       if (!ctx || !canvas) return;
@@ -141,6 +149,7 @@ export function CursorTrail() {
       window.removeEventListener("mousemove", onMouseMove);
       window.removeEventListener("click", onClick);
       window.removeEventListener("touchmove", onTouchMove);
+      document.removeEventListener("visibilitychange", onVisibility);
       themeObserver.disconnect();
     };
   }, []);
