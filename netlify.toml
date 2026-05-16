@@ -1,0 +1,23 @@
+# Netlify build & deploy settings — version-controlled here instead of
+# living only in the Netlify dashboard.
+#
+# NOTE: secrets (the GitHub token, set as GITGRAPH or GITHUB_TOKEN) must
+# NOT go in this file — it is committed to git. Keep them in
+# Netlify → Site configuration → Environment variables, with the scope
+# set to include "Functions" (the contribution graph is fetched at
+# request time in a serverless function, not just at build).
+
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[build.environment]
+  # Matches .nvmrc — keeps the Netlify build on the same Node as local/CI.
+  NODE_VERSION = "24"
+
+# Official Next.js runtime. Enables SSR / React Server Components — the
+# async <SiteFooter> and its cached GitHub fetch run as serverless
+# functions. Netlify installs this plugin automatically when it's
+# declared here, so it does not need to be in package.json.
+[[plugins]]
+  package = "@netlify/plugin-nextjs"

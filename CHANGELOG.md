@@ -12,6 +12,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and 
   - `src/components/contribution-graph.tsx` — presentational, prop-driven (`{ calendar }`). Cells are placed by ISO weekday via `gridColumnStart`/`gridRowStart` so partial first/last weeks align correctly. Keeps the original emerald `LEVEL_CLASSES` (with `dark:` variants) + Less/More legend.
   - `ContributionDay` / `ContributionWeek` / `ContributionCalendar` / `ContributionLevel` types in `src/types/portfolio.ts`.
   - `.env.example` documenting `GITHUB_TOKEN`; `server-only` dependency added.
+  - `netlify.toml` — version-controlled build settings (`npm run build`, `.next` publish, Node 24, official `@netlify/plugin-nextjs` runtime) so SSR / the footer's request-time GitHub fetch work on Netlify without dashboard-only config.
 - **Elevation system** from [fluidfunctionalism/elevated](https://www.fluidfunctionalism.com/r/elevated.json) — 8-level surface + shadow ladder via CSS custom properties, with automatic light/dark adaptation.
   - `src/lib/surface-context.tsx` — `useSurface()` hook + `SurfaceProvider` React context for tracking substrate level across nested components.
   - `src/lib/surface-classes.ts` — Static lookup maps (`SURFACE_BG`, `SURFACE_SHADOW`, `surfaceClasses()`) required because Tailwind v4 cannot scan template-literal class names.
