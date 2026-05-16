@@ -60,3 +60,21 @@ export interface ProjectDetail {
   sections: ProjectFeatureSection[];
   conclusion: string;
 }
+
+export type ContributionLevel = 0 | 1 | 2 | 3 | 4;
+
+export interface ContributionDay {
+  /** ISO date string, e.g. "2025-11-11". */
+  date: string;
+  count: number;
+  level: ContributionLevel;
+}
+
+export interface ContributionWeek {
+  days: ContributionDay[];
+}
+
+export interface ContributionCalendar {
+  totalContributions: number;
+  weeks: ContributionWeek[];
+}

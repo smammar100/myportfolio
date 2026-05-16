@@ -5,7 +5,6 @@ import { StackSection } from "@/components/stack-section";
 import { AboutSection } from "@/components/about-section";
 import { ExperienceSection } from "@/components/experience-section";
 import { WritingSection } from "@/components/writing-section";
-import { ContributionGraphSection } from "@/components/contribution-graph-section";
 import { SiteFooter } from "@/components/site-footer";
 
 export default function Home() {
@@ -19,7 +18,6 @@ export default function Home() {
         <AboutSection />
         <ExperienceSection />
         <WritingSection />
-        <ContributionGraphSection />
       </main>
       <SiteFooter />
     </>

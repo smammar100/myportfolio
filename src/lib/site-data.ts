@@ -12,9 +12,10 @@ export const profile = {
     "Full-stack developer who loves building things from idea to launch.",
   email: "hi@john.me",
   avatar: "/images/home/avatar.webp",
+  githubUsername: "smammar100",
   socials: {
     twitter: "https://x.com",
-    github: "https://github.com",
+    github: "https://github.com/smammar100",
   },
   githubStars: "11.2k",
 };

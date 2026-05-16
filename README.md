@@ -49,6 +49,27 @@ npm install
 npm run dev      # http://localhost:3000
 ```
 
+### GitHub contribution graph
+
+The footer renders a **live** GitHub contribution calendar (the green-square
+grid) from the official GitHub GraphQL API. It needs a Personal Access Token:
+
+1. Create one at **https://github.com/settings/tokens** — a classic token
+   with **no scopes** is enough for public contribution data.
+2. Copy `.env.example` → `.env.local` and paste the token:
+
+   ```bash
+   GITHUB_TOKEN=ghp_your_token_here
+   ```
+
+3. For production, add `GITHUB_TOKEN` in **Vercel → Project → Settings →
+   Environment Variables**.
+
+The account is set via `profile.githubUsername` in `src/lib/site-data.ts`.
+Data is fetched server-side and cached for 12h (`unstable_cache`). If the
+token is missing or the request fails, the footer **gracefully degrades** to
+just the email link — the site never breaks.
+
 Other scripts:
 
 ```bash
@@ -82,20 +103,22 @@ src/
     about-section.tsx
     experience-section.tsx
     writing-section.tsx
-    contribution-graph-section.tsx
-    site-footer.tsx
+    contribution-graph.tsx  # presentational GitHub calendar grid
+    site-footer.tsx         # async — fetches + renders the contribution graph
     theme-provider.tsx
     icons.tsx             # all SVG icons inline as React components
   lib/
     site-data.ts          # profile, navLinks, projects, articles
     about-data.ts         # about-page content
     project-data.ts       # per-project content
+    github.ts             # server-only cached GitHub GraphQL fetcher
     utils.ts              # cn()
   types/
     portfolio.ts          # shared interfaces
 public/
   images/                 # photos, project covers, avatars
   seo/                    # favicons, OG images, webmanifest
+.env.example              # GITHUB_TOKEN template (copy → .env.local)
 ```
 
 ---
@@ -109,6 +132,8 @@ public/
 **Coordinate space** — the trail canvas is `position: fixed`, so trail points are stored in **viewport coordinates** (`clientX/clientY`), not document coordinates. This keeps the trail visible at any scroll position on long pages.
 
 **Noise without dependencies** — the static-noise PNG from the original tutorial is replaced with an inline SVG `<feTurbulence>` filter encoded as a data URL. Zero network requests, ~270 bytes inline.
+
+**Live contribution graph, token stays server-side** — `src/lib/github.ts` is marked `import "server-only"` and reads `GITHUB_TOKEN` only on the server. The async `SiteFooter` awaits it and passes the resolved grid (dates/counts/levels) as serializable props to the presentational `ContributionGraph`, so the token never reaches the client bundle. The GraphQL call is a POST (not auto-cached by Next's fetch), so it's wrapped in `unstable_cache` keyed by username with a 12h revalidate.
 
 ---
 

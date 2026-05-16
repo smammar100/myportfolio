@@ -7,6 +7,11 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and 
 ## [Unreleased]
 
 ### Added
+- **Live GitHub contribution graph in the footer.** The footer now renders a real contribution calendar for `smammar100` from the official GitHub GraphQL API, on every page.
+  - `src/lib/github.ts` — `import "server-only"` data fetcher. POSTs the `contributionsCollection` query to `api.github.com/graphql`, maps the `contributionLevel` enum → a 0–4 scale, and is wrapped in `unstable_cache` (keyed by username, 12h `revalidate`, tag `github-contributions`). The GraphQL POST is not auto-cached by Next's fetch Data Cache, so explicit caching is required. `'use cache'` was deliberately avoided since it would require flipping the app-wide `cacheComponents` flag.
+  - `src/components/contribution-graph.tsx` — presentational, prop-driven (`{ calendar }`). Cells are placed by ISO weekday via `gridColumnStart`/`gridRowStart` so partial first/last weeks align correctly. Keeps the original emerald `LEVEL_CLASSES` (with `dark:` variants) + Less/More legend.
+  - `ContributionDay` / `ContributionWeek` / `ContributionCalendar` / `ContributionLevel` types in `src/types/portfolio.ts`.
+  - `.env.example` documenting `GITHUB_TOKEN`; `server-only` dependency added.
 - **Elevation system** from [fluidfunctionalism/elevated](https://www.fluidfunctionalism.com/r/elevated.json) — 8-level surface + shadow ladder via CSS custom properties, with automatic light/dark adaptation.
   - `src/lib/surface-context.tsx` — `useSurface()` hook + `SurfaceProvider` React context for tracking substrate level across nested components.
   - `src/lib/surface-classes.ts` — Static lookup maps (`SURFACE_BG`, `SURFACE_SHADOW`, `surfaceClasses()`) required because Tailwind v4 cannot scan template-literal class names.
@@ -14,8 +19,15 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and 
   - `globals.css` — `--surface-1..8` and `--shadow-1..8` token definitions for both light (`#FAFAFA → #FFFFFF`, multi-layer drop shadow at 6% black) and dark (`#171717 → #484848`, inset top-highlight + ring + layered drop).
 
 ### Changed
+- `SiteFooter` is now an `async` Server Component that fetches contribution data and renders the graph above the email link, with a "{total} contributions in the last year" caption linking to the GitHub profile. Falls back to the email-only footer when no token / fetch fails.
+- `profile` in `src/lib/site-data.ts` gained `githubUsername: "smammar100"`; `socials.github` now points at the real profile.
+- Contribution graph recolored from GitHub's emerald palette to a monochrome `--foreground`-opacity ramp (`/[0.06]` → `/20` → `/40` → `/65` → solid), so it matches the site: shades of black on light mode, shades of white on dark mode, auto-inverting with the theme.
+- `getContributions` hardened: the fetch now throws on failure so `unstable_cache` never persists an error/`null` (a transient GitHub outage retries next request instead of blanking the graph for the 12h window); a thin wrapper catches and returns `null` for the graceful footer fallback.
 - All card surfaces migrated from `bg-card border border-border` (flat) to `bg-surface-2 shadow-surface-2` (elevated). Affected: Latest writing list, Articles page list, About manifesto card, Project overview box, goal cards, tag pills, and secondary demo button.
 - Project page TOC popover now inverts against the page background — black card with white text on light pages, white card with black text on dark pages. Achieved by swapping `bg-card / text-card-foreground` (matches page) for `bg-primary / text-primary-foreground` (inverted in the design tokens). Internal hover/active overlays, borders, and muted text use `primary-foreground/X` so they adapt automatically.
+
+### Removed
+- `src/components/contribution-graph-section.tsx` — the pseudo-random mock graph (hardcoded seed, fixed `2025-11-11` date) that only appeared on the home page. Replaced by the real, footer-wide graph.
 
 ### Fixed
 - Project page TOC was previously hardcoded to `bg-neutral-900` + `text-white` and stayed dark in light mode. It now responds to theme changes.
