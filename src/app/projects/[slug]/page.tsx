@@ -69,7 +69,7 @@ export default async function ProjectPage({ params }: Params) {
                 </span>
               ))}
             </div>
-            <h1 className="text-4xl tracking-tight text-foreground sm:text-5xl">
+            <h1 className="text-3xl tracking-tight text-foreground sm:text-4xl">
               {project.title}
             </h1>
             <p className="max-w-2xl text-lg leading-relaxed text-muted-foreground">
@@ -103,7 +103,7 @@ export default async function ProjectPage({ params }: Params) {
           <ProjectToc items={tocItems} />
           <div className="space-y-20">
               <section id="overview" className="scroll-mt-24 space-y-6">
-                <h2 className="text-2xl font-medium tracking-tight text-foreground">
+                <h2 className="text-xl font-medium tracking-tight text-foreground">
                   Overview
                 </h2>
                 <p className="max-w-prose text-base leading-relaxed text-muted-foreground">
@@ -135,7 +135,7 @@ export default async function ProjectPage({ params }: Params) {
               </section>
 
               <section id="goals" className="scroll-mt-24 space-y-6">
-                <h2 className="text-2xl font-medium tracking-tight text-foreground">
+                <h2 className="text-xl font-medium tracking-tight text-foreground">
                   Goals
                 </h2>
                 <ol className="grid grid-cols-1 gap-4 sm:grid-cols-3">
@@ -164,7 +164,7 @@ export default async function ProjectPage({ params }: Params) {
                   id={section.id}
                   className="scroll-mt-24 space-y-8"
                 >
-                  <h2 className="text-2xl font-medium tracking-tight text-foreground">
+                  <h2 className="text-xl font-medium tracking-tight text-foreground">
                     {section.title}
                   </h2>
                   <ul className="space-y-10">
@@ -189,7 +189,7 @@ export default async function ProjectPage({ params }: Params) {
                 id="conclusion"
                 className="scroll-mt-24 space-y-6 border-t border-border pt-12"
               >
-                <h2 className="text-2xl font-medium tracking-tight text-foreground">
+                <h2 className="text-xl font-medium tracking-tight text-foreground">
                   Conclusion
                 </h2>
                 <p className="max-w-prose text-base leading-relaxed text-muted-foreground">

@@ -39,13 +39,13 @@ export default function AboutPage() {
             />
           </div>
           <div className="space-y-5 pt-1">
-            <h1 className="text-2xl font-medium tracking-tight text-foreground">
+            <h1 className="text-3xl font-medium tracking-tight text-foreground sm:text-4xl">
               {aboutHero.greeting}{" "}
               <span className="font-mono text-base font-normal text-muted-foreground">
                 {aboutHero.phonetic}
               </span>
             </h1>
-            <div className="space-y-4 text-[15px] leading-relaxed text-muted-foreground">
+            <div className="space-y-4 text-base leading-relaxed text-muted-foreground">
               {aboutHero.paragraphs.map((p, i) => (
                 <p key={i}>{p}</p>
               ))}
@@ -58,7 +58,7 @@ export default function AboutPage() {
             <h2 className="text-base font-semibold text-foreground">
               {manifesto.title}
             </h2>
-            <p className="mt-5 text-[15px] leading-relaxed text-muted-foreground">
+            <p className="mt-5 text-base leading-relaxed text-muted-foreground">
               {manifesto.body}
             </p>
           </div>

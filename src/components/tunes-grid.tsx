@@ -55,7 +55,7 @@ export function TunesGrid({ tunes }: TunesGridProps) {
               <p className="text-xs font-semibold tracking-wide uppercase">
                 {tune.title}
               </p>
-              <p className="text-[11px] text-white/60">{tune.artist}</p>
+              <p className="text-xs text-white/60">{tune.artist}</p>
             </div>
           </li>
         );

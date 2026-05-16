@@ -12,9 +12,9 @@ const GITHUB_GRAPHQL_ENDPOINT = "https://api.github.com/graphql";
 const REVALIDATE_SECONDS = 43200;
 
 const CONTRIBUTIONS_QUERY = `
-  query ($login: String!) {
+  query ($login: String!, $from: DateTime!, $to: DateTime!) {
     user(login: $login) {
-      contributionsCollection {
+      contributionsCollection(from: $from, to: $to) {
         contributionCalendar {
           totalContributions
           weeks {
@@ -69,7 +69,8 @@ interface GraphQLResponse {
  * for the full revalidate window. Only successful results get cached.
  */
 async function fetchContributions(
-  username: string
+  username: string,
+  year: number
 ): Promise<ContributionCalendar> {
   // Accept either name: GITHUB_TOKEN (local/.env.local, the documented
   // default) or GITGRAPH (the secret already configured on Netlify).
@@ -77,6 +78,12 @@ async function fetchContributions(
   if (!token) {
     throw new Error("Neither GITHUB_TOKEN nor GITGRAPH is set");
   }
+
+  // Whole calendar year (Jan 1 → Dec 31) rather than the trailing 365
+  // days, so the grid reads Jan…Dec with future days simply empty —
+  // matching GitHub's year view. GitHub returns all 53 weeks for this.
+  const from = `${year}-01-01T00:00:00.000Z`;
+  const to = `${year}-12-31T23:59:59.999Z`;
 
   const res = await fetch(GITHUB_GRAPHQL_ENDPOINT, {
     method: "POST",
@@ -87,7 +94,7 @@ async function fetchContributions(
     },
     body: JSON.stringify({
       query: CONTRIBUTIONS_QUERY,
-      variables: { login: username },
+      variables: { login: username, from, to },
     }),
     // unstable_cache handles persistence; don't double-cache the POST.
     cache: "no-store",
@@ -129,14 +136,20 @@ async function fetchContributions(
  * than the `use cache` directive so we don't have to flip the app-wide
  * `cacheComponents` flag. The GraphQL call is a POST, which Next's fetch
  * Data Cache does not memoize automatically, so explicit caching is needed.
- * Keyed by username (passed as the argument), revalidated every 12h. Only
- * resolved values are cached — thrown errors propagate uncached.
+ * Keyed by username + year (both passed as arguments, so the year boundary
+ * naturally busts the cache), revalidated every 12h. Only resolved values
+ * are cached — thrown errors propagate uncached.
  */
 const cachedFetch = unstable_cache(
   fetchContributions,
   ["github-contributions"],
   { revalidate: REVALIDATE_SECONDS, tags: ["github-contributions"] }
 );
+
+/** The calendar year the graph shows (the current year). */
+export function contributionYear(): number {
+  return new Date().getUTCFullYear();
+}
 
 /**
  * Public accessor. Wraps the cached fetch so the caller (the async footer)
@@ -147,7 +160,7 @@ export async function getContributions(
   username: string
 ): Promise<ContributionCalendar | null> {
   try {
-    return await cachedFetch(username);
+    return await cachedFetch(username, contributionYear());
   } catch (err) {
     console.warn(
       "[github] Contribution fetch failed:",

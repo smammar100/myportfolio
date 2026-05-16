@@ -16,10 +16,10 @@ export default function ArticlesPage() {
       <NavToolbar />
       <main className="mx-auto w-full max-w-3xl flex-1 px-6 pb-24 pt-24">
         <header>
-          <h1 className="text-3xl font-medium tracking-tight text-foreground">
+          <h1 className="text-3xl font-medium tracking-tight text-foreground sm:text-4xl">
             Articles &amp; notes
           </h1>
-          <p className="mt-4 max-w-prose text-[15px] leading-relaxed text-muted-foreground">
+          <p className="mt-4 max-w-prose text-base leading-relaxed text-muted-foreground">
             {profile.tagline}
           </p>
         </header>
