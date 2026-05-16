@@ -51,8 +51,9 @@ npm run dev      # http://localhost:3000
 
 ### GitHub contribution graph
 
-The footer renders a **live** GitHub contribution calendar (the green-square
-grid) from the official GitHub GraphQL API. It needs a Personal Access Token:
+The footer renders a **live** GitHub contribution calendar (monochrome —
+shades of black on light mode, shades of white on dark mode) from the
+official GitHub GraphQL API. It needs a Personal Access Token:
 
 1. Create one at **https://github.com/settings/tokens** — a classic token
    with **no scopes** is enough for public contribution data.
@@ -62,8 +63,12 @@ grid) from the official GitHub GraphQL API. It needs a Personal Access Token:
    GITHUB_TOKEN=ghp_your_token_here
    ```
 
-3. For production, add `GITHUB_TOKEN` in **Vercel → Project → Settings →
-   Environment Variables**.
+3. For production, add the token as an environment variable on your host:
+   - **Vercel** → Project → Settings → Environment Variables
+   - **Netlify** → Site configuration → Environment variables
+
+   The code accepts **either** `GITHUB_TOKEN` *or* `GITGRAPH` as the
+   variable name.
 
 The account is set via `profile.githubUsername` in `src/lib/site-data.ts`.
 Data is fetched server-side and cached for 12h (`unstable_cache`). If the
@@ -133,7 +138,7 @@ public/
 
 **Noise without dependencies** — the static-noise PNG from the original tutorial is replaced with an inline SVG `<feTurbulence>` filter encoded as a data URL. Zero network requests, ~270 bytes inline.
 
-**Live contribution graph, token stays server-side** — `src/lib/github.ts` is marked `import "server-only"` and reads `GITHUB_TOKEN` only on the server. The async `SiteFooter` awaits it and passes the resolved grid (dates/counts/levels) as serializable props to the presentational `ContributionGraph`, so the token never reaches the client bundle. The GraphQL call is a POST (not auto-cached by Next's fetch), so it's wrapped in `unstable_cache` keyed by username with a 12h revalidate.
+**Live contribution graph, token stays server-side** — `src/lib/github.ts` is marked `import "server-only"` and reads the token (`GITHUB_TOKEN` or `GITGRAPH`) only on the server. The async `SiteFooter` awaits it and passes the resolved grid (dates/counts/levels) as serializable props to the presentational `ContributionGraph`, so the token never reaches the client bundle. The GraphQL call is a POST (not auto-cached by Next's fetch), so it's wrapped in `unstable_cache` keyed by username with a 12h revalidate.
 
 ---
 

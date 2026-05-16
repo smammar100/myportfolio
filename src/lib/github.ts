@@ -71,9 +71,11 @@ interface GraphQLResponse {
 async function fetchContributions(
   username: string
 ): Promise<ContributionCalendar> {
-  const token = process.env.GITHUB_TOKEN;
+  // Accept either name: GITHUB_TOKEN (local/.env.local, the documented
+  // default) or GITGRAPH (the secret already configured on Netlify).
+  const token = process.env.GITHUB_TOKEN ?? process.env.GITGRAPH;
   if (!token) {
-    throw new Error("GITHUB_TOKEN is not set");
+    throw new Error("Neither GITHUB_TOKEN nor GITGRAPH is set");
   }
 
   const res = await fetch(GITHUB_GRAPHQL_ENDPOINT, {
