@@ -26,7 +26,7 @@ export function ExperienceSection() {
           ))}
         </ul>
         <div>
-          <h3 className="mb-4 text-xl font-medium tracking-tight text-foreground">
+          <h3 className="mb-4 text-xl font-medium leading-[1.1] tracking-tight text-foreground">
             Skills
           </h3>
           <ul className="space-y-3 text-sm text-muted-foreground">

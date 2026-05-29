@@ -16,10 +16,10 @@ export default function ArticlesPage() {
       <NavToolbar />
       <main className="mx-auto w-full max-w-3xl flex-1 px-6 pb-24 pt-24">
         <header>
-          <h1 className="text-3xl font-medium tracking-tight text-foreground sm:text-4xl">
+          <h1 className="text-3xl font-medium leading-[1.1] tracking-tight text-foreground sm:text-4xl">
             Articles &amp; notes
           </h1>
-          <p className="mt-4 max-w-prose text-base leading-relaxed text-muted-foreground">
+          <p className="mt-4 max-w-prose text-base leading-normal text-muted-foreground">
             {profile.tagline}
           </p>
         </header>
@@ -32,10 +32,10 @@ export default function ArticlesPage() {
                 className="group flex items-start justify-between gap-6 p-6 transition-colors hover:bg-muted/40"
               >
                 <div className="space-y-3">
-                  <h2 className="text-base font-medium text-foreground">
+                  <h2 className="text-base font-medium leading-[1.1] text-foreground">
                     {article.title}
                   </h2>
-                  <p className="max-w-prose text-sm leading-relaxed text-muted-foreground">
+                  <p className="max-w-prose text-sm leading-normal text-muted-foreground">
                     {article.excerpt}
                   </p>
                   <p className="text-sm font-medium text-foreground tabular-nums">

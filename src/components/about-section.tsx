@@ -14,7 +14,7 @@ export function AboutSection() {
   return (
     <section className="py-12">
       <SectionHeading title="About" />
-      <div className="space-y-5 text-base leading-relaxed text-muted-foreground">
+      <div className="space-y-5 text-base leading-normal text-muted-foreground">
         {aboutParagraphs.map((p, i) => (
           <p key={i}>{p}</p>
         ))}

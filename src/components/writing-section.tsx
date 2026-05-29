@@ -18,10 +18,10 @@ export function WritingSection() {
               className="group flex items-start justify-between gap-6 p-6 transition-colors hover:bg-muted/40"
             >
               <div className="space-y-3">
-                <h3 className="text-base font-medium text-foreground">
+                <h3 className="text-base font-medium leading-[1.1] text-foreground">
                   {article.title}
                 </h3>
-                <p className="max-w-prose text-sm leading-relaxed text-muted-foreground">
+                <p className="max-w-prose text-sm leading-normal text-muted-foreground">
                   {article.excerpt}
                 </p>
                 <p className="text-sm font-medium text-foreground tabular-nums">

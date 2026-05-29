@@ -10,7 +10,7 @@ interface SectionHeadingProps {
 export function SectionHeading({ title, link }: SectionHeadingProps) {
   return (
     <div className="mb-8 flex items-baseline justify-between gap-4">
-      <h2 className="text-xl font-medium tracking-tight text-foreground">
+      <h2 className="text-xl font-medium leading-[1.1] tracking-tight text-foreground">
         {title}
       </h2>
       {link ? (

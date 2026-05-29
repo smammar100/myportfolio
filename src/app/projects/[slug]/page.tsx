@@ -34,7 +34,7 @@ function SectionTitle({ id, children }: { id?: string; children: string }) {
   return (
     <h2
       id={id}
-      className="scroll-mt-24 text-2xl font-medium tracking-tight text-foreground sm:text-3xl"
+      className="scroll-mt-24 text-2xl font-medium leading-[1.1] tracking-tight text-foreground sm:text-3xl"
     >
       {children}
       <span className="text-muted-foreground">.</span>
@@ -97,10 +97,10 @@ function NextProject({ slug }: { slug: string }) {
               Next project
             </span>
             <div className="space-y-2">
-              <h2 className="text-xl font-medium tracking-tight text-foreground">
+              <h2 className="text-xl font-medium leading-[1.1] tracking-tight text-foreground">
                 {next.title}
               </h2>
-              <p className="text-sm leading-relaxed text-muted-foreground">
+              <p className="text-sm leading-normal text-muted-foreground">
                 {next.description}
               </p>
             </div>
@@ -172,17 +172,9 @@ export default async function ProjectPage({ params }: Params) {
 
           {/* Hero — tagline carries the page, like an editorial opener */}
           <header className="mt-14 space-y-8">
-            <p className="text-xs uppercase tracking-wide text-muted-foreground">
-              {project.title}
-            </p>
-            <h1 className="max-w-3xl text-3xl font-medium leading-tight tracking-tight text-foreground sm:text-4xl md:text-5xl">
+            <h1 className="max-w-3xl text-3xl font-medium leading-[1.05] tracking-tight text-foreground sm:text-4xl md:text-5xl">
               {project.tagline}
             </h1>
-            {project.year ? (
-              <p className="text-sm text-muted-foreground">
-                Published in {project.year}
-              </p>
-            ) : null}
           </header>
 
           {/* Meta — hairline-divided editorial groups */}
@@ -251,10 +243,10 @@ export default async function ProjectPage({ params }: Params) {
             {/* Overview */}
             <section className="space-y-6">
               <SectionTitle id="overview">Overview</SectionTitle>
-              <p className="max-w-prose text-xl leading-relaxed text-foreground">
+              <p className="max-w-prose text-xl leading-[1.4] text-foreground">
                 {project.overviewSummary}
               </p>
-              <p className="max-w-prose text-lg leading-relaxed text-muted-foreground">
+              <p className="max-w-prose text-lg leading-normal text-muted-foreground">
                 {project.overviewDetail}
               </p>
             </section>
@@ -290,10 +282,10 @@ export default async function ProjectPage({ params }: Params) {
                     <span className="text-xs font-medium tabular-nums text-muted-foreground">
                       {String(i + 1).padStart(2, "0")}
                     </span>
-                    <h3 className="mt-2 text-base font-medium text-foreground">
+                    <h3 className="mt-2 text-base font-medium leading-[1.1] text-foreground">
                       {goal.title}
                     </h3>
-                    <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                    <p className="mt-2 text-sm leading-normal text-muted-foreground">
                       {goal.body}
                     </p>
                   </li>
@@ -310,10 +302,10 @@ export default async function ProjectPage({ params }: Params) {
                 <SectionTitle id={section.id}>{section.title}</SectionTitle>
                 {section.items.map((item) => (
                   <div key={item.title} className="space-y-6">
-                    <h3 className="text-lg font-medium text-foreground sm:text-xl">
+                    <h3 className="text-lg font-medium leading-[1.1] text-foreground sm:text-xl">
                       {item.title}
                     </h3>
-                    <p className="max-w-prose text-lg leading-relaxed text-muted-foreground">
+                    <p className="max-w-prose text-lg leading-normal text-muted-foreground">
                       {item.body}
                     </p>
                     <MediaTile className="aspect-video w-full" />
@@ -349,7 +341,7 @@ export default async function ProjectPage({ params }: Params) {
             {/* Pull quote */}
             {project.pullQuote ? (
               <figure className="space-y-6">
-                <blockquote className="max-w-3xl text-2xl font-medium leading-snug tracking-tight text-foreground sm:text-3xl">
+                <blockquote className="max-w-3xl text-2xl font-medium leading-[1.1] tracking-tight text-foreground sm:text-3xl">
                   “{project.pullQuote.quote}”
                 </blockquote>
                 {project.pullQuote.attribution ? (
@@ -363,7 +355,7 @@ export default async function ProjectPage({ params }: Params) {
             {/* Conclusion */}
             <section className="space-y-6 border-t border-border pt-14">
               <SectionTitle id="conclusion">Conclusion</SectionTitle>
-              <p className="max-w-prose text-lg leading-relaxed text-muted-foreground">
+              <p className="max-w-prose text-lg leading-normal text-muted-foreground">
                 {project.conclusion}
               </p>
               {project.demoUrl ? (

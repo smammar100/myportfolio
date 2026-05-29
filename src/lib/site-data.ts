@@ -9,7 +9,7 @@ export const profile = {
   name: "John",
   greeting: "Hi, I'm John",
   tagline:
-    "Full-stack developer who loves building things from idea to launch.",
+    "Design engineer. I close the gap between the design file and the deployed product.",
   email: "hi@john.me",
   avatar: "/images/home/avatar.webp",
   githubUsername: "smammar100",
@@ -29,39 +29,46 @@ export const navLinks = [
 
 export const projects: Project[] = [
   {
+    slug: "mahaana",
+    title: "Mahaana",
+    description: "Pakistan's first SECP-licensed wealthtech site — rebuilt solo in six weeks.",
+    cover: "/images/projects/mahaana/Cover.png",
+    href: "/projects/mahaana",
+  },
+  {
     slug: "echo-ui",
     title: "Echo UI v3",
-    description: "Component library & design system",
+    description: "40+ headless React primitives. Zero runtime styling. Full keyboard nav and docs.",
     cover: "/images/projects/echo-ui/cover.webp",
     href: "/projects/echo-ui",
   },
   {
     slug: "justos",
     title: "JustOS",
-    description: "Productivity OS for Creators",
+    description: "One window, one input — tasks, calendar, and notes without the context switch.",
     cover: "/images/projects/justos/cover.svg",
     href: "/projects/justos",
   },
   {
     slug: "happy-stats",
     title: "Happy Stats",
-    description: "Lightweight analytics dashboard",
+    description: "Cookie-free analytics in under 1kb. The answer's visible before you scroll.",
     cover: "/images/projects/happy-stats/cover.webp",
     href: "/projects/happy-stats",
   },
   {
     slug: "cactus-plant",
     title: "Cactus Plant",
-    description: "Realtime collaboration framework",
+    description: "The layer between a websocket and a CRDT — presence, sync, and offline in one package.",
     cover: "/images/projects/cactus-plant/cover.webp",
     href: "/projects/cactus-plant",
   },
 ];
 
 export const aboutParagraphs = [
-  "I started coding out of curiosity — building small browser games and landing pages — and over time grew into a developer who loves the entire journey from an empty repo to a shipped product. There's something deeply satisfying about turning vague ideas into things people actually use.",
-  "My stack includes TypeScript, React, Next.js, Node, and PostgreSQL, but I love exploring new technologies whenever a project asks for it. I care about clean abstractions, tight feedback loops, and interfaces that respect the people using them.",
-  "Outside of coding, I enjoy writing, contributing to open source, and teaching others what I've learned along the way. I think the best way to deepen your own understanding is to help someone else find theirs.",
+  "I'm a design engineer — I design the thing and build it, usually in the same sprint. My work sits at the intersection of brand identity, product UI, and front-end code. The gap between a design file and a deployed product is where the most interesting problems live, and where I spend most of my time.",
+  "My stack is TypeScript, React, Next.js, and Node — but the stack is the how, not the why. I care about the 20% of craft that templates can't reach: motion timing, type rhythm, the small interactions that make a product feel like it means what it says. The code is just the material.",
+  "I've built analytics products, design systems, collaboration frameworks, and fintech marketing sites — usually solo or in small teams. I believe the most valuable thing a designer brings to an AI-assisted build is the word no. That's the part no tool can do for you.",
 ];
 
 export const aboutPhotos: AboutPhoto[] = [

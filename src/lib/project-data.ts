@@ -1,6 +1,132 @@
 import type { ProjectDetail } from "@/types/portfolio";
 
 export const projectDetails: Record<string, ProjectDetail> = {
+  mahaana: {
+    slug: "mahaana",
+    title: "Mahaana",
+    tagline:
+      "Rebuilding Pakistan's first SECP-licensed digital wealth platform — solo, in six weeks, with Cursor as my engineering team.",
+    cover: "/images/projects/mahaana/Cover.png",
+    demoUrl: "https://stg-mahaana-common-mahaanaweb.azurewebsites.net/",
+    version: "Staging live · production pending",
+    platform: "Marketing site — Next.js + Sanity + Azure",
+    roles: ["Design Manager", "Brand", "UX", "Engineering"],
+    client: "Mahaana (in-house)",
+    services: [
+      "Design Engineering",
+      "Brand",
+      "UX",
+      "Content Strategy",
+      "Front-end Development",
+    ],
+    deliverables: [
+      "Marketing site rebuild",
+      "Sanity CMS schema",
+      "Design system in code",
+      "Azure deployment",
+    ],
+    year: "2026",
+    metrics: [
+      { value: "+32", label: "Lighthouse Performance · 65 → 97" },
+      { value: "0.6s", label: "Largest Contentful Paint · was 1.7s" },
+      { value: "−97%", label: "Total Blocking Time · 600ms → 20ms" },
+      { value: "100", label: "Accessibility · Best Practices · SEO" },
+    ],
+    team: "Solo — with Cursor as engineering pair",
+    overviewSummary:
+      "Mahaana is Pakistan's first SECP-licensed digital wealth manager. People invest with us starting at PKR 5,000 — Save+, retirement, and three Shariah-compliant funds. For most of them, the marketing site is the first place they meet us, and for a wealthtech brand that first impression is the product.",
+    overviewDetail:
+      "Until recently, that first impression was a Webflow site. It worked, but it couldn't keep up. The team was bottlenecked on visual configuration instead of writing. Brand-level craft hit a ceiling Webflow couldn't reach. And the content workflow for investor education was broken — static pages, no real model, layouts editors couldn't ship to without breaking. I'm a designer who codes — or becoming one. I made a bet I could rebuild the whole site, solo, in six weeks, with Cursor as the engineering pair.",
+    goals: [
+      {
+        title: "Speed was capped",
+        body: "Every campaign page, every product update, every new piece of investor education needed a designer inside Webflow. Marketing was bottlenecked on visual configuration — not on writing or strategy.",
+      },
+      {
+        title: "Craft hit a ceiling",
+        body: "Webflow renders the first 80% of a site fine. The last 20% — motion timing, hover behavior, type rhythm, the felt-quality that separates a wealthtech brand from a SaaS template — was either expensive to build or impossible.",
+      },
+      {
+        title: "Content workflow was broken",
+        body: "Investor education is our most strategic content surface. It lived as static pages with no real model. Editors couldn't ship without breaking layouts. A proper CMS was non-negotiable.",
+      },
+    ],
+    sections: [
+      {
+        id: "bet",
+        title: "The bet",
+        items: [
+          {
+            title: "Next.js — App Router",
+            body: "Chosen for performance, image optimization, and file-system routing that mirrors how a designer thinks about pages. Server-rendered, image-optimised, and fast enough that the marketing site finally felt like the product.",
+          },
+          {
+            title: "Sanity — headless CMS",
+            body: "Real content modeling, not bolted-on collections. Editors get a custom Studio with portable text, references, slug strategy, and draft-vs-published flows. Non-technical teammates ship without involving a designer.",
+          },
+          {
+            title: "Azure App Service",
+            body: "Aligns the marketing site with Mahaana's broader infrastructure and replaces Netlify. Same deploy story as the rest of the platform.",
+          },
+        ],
+      },
+      {
+        id: "workflow",
+        title: "The workflow",
+        items: [
+          {
+            title: "Tokens first, pages last",
+            body: "Before any page, I built the design system in code — colors, typography scale, spacing rhythm, motion curves, button states. Tokens lived in the codebase, not in Figma. The Figma file stayed deliberately rough: enough to communicate intent, never so precious I'd waste time on pixel-fidelity I'd throw away after the first prompt.",
+          },
+          {
+            title: "Components from primitives",
+            body: "With Cursor I composed a base library — cards, navigation, hero blocks, content modules — using only those tokens. The rule: if a component reached for a value that wasn't in the system, I made it a token first. No magic numbers, no orphan styles.",
+          },
+          {
+            title: "Pages by composition",
+            body: "Once the library was real, pages assembled themselves. The Investor Education hub, the five product pages, the Investment Calculator — each was 80% library, 20% page-specific work. Six page templates serving sixteen routes.",
+          },
+          {
+            title: "Prompts as the new spec",
+            body: "I stopped writing Figma redlines. I wrote prompts that described intent, behavior, and edge cases. The prompts became the design spec. Reviewing Cursor's output in the browser, against the prompt, replaced the design review.",
+          },
+        ],
+      },
+      {
+        id: "tradeoffs",
+        title: "Where Cursor broke",
+        items: [
+          {
+            title: "Brand-level craft",
+            body: "Cursor produced components that worked. They didn't feel like Mahaana — default easing, jumpy hovers, type rhythm reading as SaaS-template-generic. I rewrote every micro-interaction by hand, because that 5% is the difference between a site that works and a site that's ours.",
+          },
+          {
+            title: "Sanity schema design",
+            body: "Cursor could write a schema. It couldn't design one. First drafts were flat — every page-type its own document with copy-pasted fields. I stepped back and modelled content the way a designer thinks about hierarchy: portable text, references, slug strategy, draft-vs-published flows.",
+          },
+          {
+            title: "Azure infrastructure",
+            body: "A Netlify image loader baked into next.config.ts shipped 404s on Azure — every <Image> generating /.netlify/images?url=… paths that didn't exist. A hardcoded preload URL hid in layout.tsx. The network tab found it; Cursor couldn't.",
+          },
+          {
+            title: "Holding the line",
+            body: "Cursor wants to add things — animations nobody asked for, libraries for problems I didn't have, abstractions that pre-optimize for a future that may never come. Most of my time wasn't writing code with Cursor; it was deleting it. The design skill is saying no.",
+          },
+        ],
+      },
+    ],
+    // Alternate pull-quotes from the case-study draft. Swap into `pullQuote.quote`
+    // to use a different headline line:
+    //   "The marketing site couldn't keep up with the product. So I rebuilt it."
+    //   "The most valuable thing a designer brings to an AI workflow is the word no."
+    pullQuote: {
+      quote:
+        "I held the design system in my head. Cursor held the syntax.",
+    },
+    conclusion:
+      "The website wasn't the end goal — the infrastructure was. Before the rebuild, every new page was a designer task. After it, the design team can move from making pages to directing the brand: content strategy, brand voice, video direction, team development — the work that compounds — while marketing publishes on its own. Cursor didn't make me a developer; it made the line between design and engineering thin enough that one person, for six weeks, could hold both ends of it. Small teams can ship like big ones now. We just did.",
+  },
+
   "echo-ui": {
     slug: "echo-ui",
     title: "Echo UI v3",

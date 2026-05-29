@@ -18,10 +18,10 @@ export function HeroSection() {
           />
         </div>
         <div className="space-y-3">
-          <h1 className="text-3xl tracking-tight text-foreground sm:text-4xl">
+          <h1 className="text-3xl leading-[1.1] tracking-tight text-foreground sm:text-4xl">
             {profile.greeting}
           </h1>
-          <p className="max-w-prose text-base text-muted-foreground">
+          <p className="max-w-prose text-base leading-normal text-muted-foreground">
             {profile.tagline}
           </p>
         </div>
