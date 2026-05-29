@@ -27,7 +27,7 @@ export function SelectedWorkSection() {
                 <h3 className="text-base font-medium text-foreground">
                   {project.title}
                 </h3>
-                <p className="text-sm text-muted-foreground">
+                <p className="text-base leading-normal text-muted-foreground">
                   {project.description}
                 </p>
               </div>
